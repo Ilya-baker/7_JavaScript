@@ -1,0 +1,77 @@
+<!-- Задание 1. 
+Создать функцию, генерирующую шахматную доску. 
+При этом можно использовать любые html-теги по своему желанию. 
+Доска должна быть разлинована соответствующим образом, т.е. чередовать черные и белые ячейки. 
+Строки должны нумероваться числами от 1 до 8, столбцы – латинскими буквами A, B, C, D, E, F, G, H. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доска</title>
+    <style>
+        tr {
+          width: 70px;
+          height: 70px;
+        }
+        td {
+            width: 70px;
+            height: 70px;
+            border: 1px solid #160e0e;
+            background-color: white;
+            text-align: center;
+            font-size: 3em;
+        }
+        table {
+          margin: auto;
+          border-collapse: collapse;
+        } 
+      </style>
+</head>
+<body>
+    <table id="chess"></table>
+    <script>
+        "use strict";
+        const board = {
+        chessBox: document.getElementById('chess'),
+
+        playingField() {
+            const numeral = ['*', 1, 2, 3, 4, 5, 6, 7, 8, '*'];
+            const abc = ['*', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', '*'];
+
+            for (let inum = 0; inum < numeral.length; inum++) {
+            const tr = document.createElement('tr');
+            this.chessBox.appendChild(tr);
+
+            for (let iabc = 0; iabc < abc.length; iabc++) {
+                const td = document.createElement('td');
+                tr.appendChild(td);
+
+                if (numeral[inum] == '*' && abc[iabc] != '*') {
+                td.innerHTML = abc[iabc];
+                } else if (abc[iabc] == '*' && numeral[inum] != '*') {
+                td.innerHTML = numeral[inum].toString();
+                }
+                if (this.squareColor(inum, iabc)) {
+                td.style.backgroundColor = 'black';
+                }
+            }
+            }
+        },
+
+        squareColor(inum, iabc) {
+            if (inum == 0 || iabc == 0 || inum == 9 || iabc == 9) {
+            return false;
+            } else {
+                return (inum + iabc) % 2 == 1
+            }
+        },
+        };
+
+        board.playingField();
+    </script>
+</body>
+</html>
+
